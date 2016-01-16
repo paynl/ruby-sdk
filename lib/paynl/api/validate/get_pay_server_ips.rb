@@ -3,7 +3,7 @@ module Paynl
     class GetPayServerIps < Api
       @@version = 1;
 
-      def doRequest (endpoint, version)
+      def doRequest ()
         return super('validate/getPayServerIps',@@version)
       end
 

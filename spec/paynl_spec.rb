@@ -1,5 +1,8 @@
 require 'spec_helper'
 
+validServiceId = 'SL-3490-4320'
+validApiToken = 'e41f83b246b706291ea9ad798ccfd9f0fee5e0ab'
+
 describe Paynl do
   it 'has a version number' do
     expect(Paynl::VERSION).not_to be nil
@@ -7,8 +10,10 @@ describe Paynl do
 
   it 'can retrieve all Pay.nl server IP\'s' do
     counter = 0
+    Paynl::Config::setServiceId('');
+    Paynl::Config::setApiToken('')
     data =  Paynl::Api::GetPayServerIps.new
-    data.doRequest(nil,nil).each_with_index { |val, index| counter+=1 }
+    data.doRequest().each_with_index { |val, index| counter+=1 }
     expect(counter).to be > 10
   end
 
@@ -27,7 +32,7 @@ describe Paynl do
   it 'can detect a missing Service ID when getting payment options' do
     expect {
       Paynl::Config::setServiceId('');
-      Paynl::Config::setApiToken('e41f83b246b706291ea9ad798ccfd9f0fee5e0ab')
+      Paynl::Config::setApiToken(validApiToken)
       data = Paynl::Api::GetService.new
       puts data.doRequest
     }.to raise_error('No Service Id is set')
@@ -35,11 +40,22 @@ describe Paynl do
 
   it 'can detect a missing ApiToken when getting payment options' do
     expect {
-      Paynl::Config::setServiceId('SL-3490-4320');
+      Paynl::Config::setServiceId(validServiceId);
       Paynl::Config::setApiToken('')
       data = Paynl::Api::GetService.new
       puts data.doRequest
     }.to raise_error('Api token is required')
+  end
+
+  it 'can fetch payment methods for country NL' do
+    counter = 0
+    Paynl::Config::setApiToken(validApiToken)
+    Paynl::Config::setServiceId(validServiceId)
+    data = Paynl::Paymentmethods.new
+    options = Hash.new()
+    options.store('country','NL')
+    data.getList(options).each_with_index { |val, index| counter+=1 }
+    expect(counter).to be > 2
   end
 
 end
