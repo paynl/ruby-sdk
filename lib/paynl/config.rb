@@ -1,8 +1,8 @@
 module Paynl
   class Config
-    @@apiToken=""
-    @@serviceId=""
-    @@apiBase="https://rest-api.pay.nl"
+    @@apiToken=''
+    @@serviceId=''
+    @@apiBase='https://rest-api.pay.nl'
     @@apiVersion=5
 
     # getApiToken - Retrieves Pay.nl api token

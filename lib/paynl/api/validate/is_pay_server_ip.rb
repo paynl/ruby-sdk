@@ -17,8 +17,8 @@ module Paynl
         return !result['result'].to_i.zero?
       end
 
-      def doRequest(endpoint = nil, version = nil)
-        return super('validate/isPayServerIp', version)
+      def doRequest()
+        return super('validate/isPayServerIp', 1)
       end
     end
   end

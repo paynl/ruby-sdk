@@ -1,20 +1,19 @@
-require 'bundler/psyched_yaml'
 module Paynl
   module Api
     class Api
-      @@version = 1;
+      @version = 1;
       @@data = Hash.new
 
-      @@apiTokenRequired = false;
-      @@serviceIdRequired = false;
+      @apiTokenRequired = false;
+      @serviceIdRequired = false;
 
       def isApiTokenRequired
-        return @@apiTokenRequired
+        return @apiTokenRequired
       end
 
 
       def isServiceIdRequired
-        return @@serviceIdRequired
+        return @serviceIdRequired
       end
 
       def getData
@@ -42,22 +41,20 @@ module Paynl
       end
 
       def doRequest(endpoint, version = nil)
-        if version.nil?
-          version = @@version
-        end
 
         data = self.getData
         uri = Paynl::Config::getApiUrl(endpoint, version)
-
+        puts uri
+        puts data
         # Code to actually do the CURL request
         response = Typhoeus::Request.post(
             uri,
             :params => data
         )
 
-        if response.code != 200
-          raise "API error"
-        end
+        # if response.code != 200
+        #   raise 'API error'
+        # end
 
         # puts response.code    # http status code
         # puts response.time    # time in seconds the request took
