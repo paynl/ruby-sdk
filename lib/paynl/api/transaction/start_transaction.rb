@@ -102,7 +102,7 @@ module Paynl
       end
 
       # Set the url where the user will be redirected to after payment.
-      def finishUrl(finishUrl)
+      def setFinishUrl(finishUrl)
         @finishUrl = finishUrl
       end
 
@@ -137,6 +137,9 @@ module Paynl
         Paynl::Helper::requireServiceId
         @@data['serviceId'] = Paynl::Config::getServiceId
 
+        Paynl::Helper::requireApiToken
+        @@data['token'] = Paynl::Config::getApiToken
+
         if @testMode.equal? true
           @@data['testMode'] = 1
         else
@@ -146,7 +149,7 @@ module Paynl
         if @amount.nil?
           raise('Amount has to be set and in cents')
         else
-          @@data['amount'] = @amount;
+          @@data['amount'] = @amount.round(0);
         end
 
         unless @paymentOptionId.nil?
@@ -230,7 +233,7 @@ module Paynl
       end
 
       def doRequest()
-        return super('transaction/start', nil)
+        return super('transaction/start', 5)
       end
 
     end

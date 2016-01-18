@@ -41,3 +41,13 @@ end
 # options = Hash.new()
 # options.store('country','BE')
 # puts data.getList(options)
+
+Paynl::Config::setApiToken('e41f83b246b706291ea9ad798ccfd9f0fee5e0ab')
+Paynl::Config::setServiceId('SL-3490-4320')
+data = Paynl::Transaction.new
+options = Hash.new
+options.store('amount', 100)
+options.store('returnUrl', 'https://sebsoft.nl')
+options.store('ipaddress', '127.0.0.1')
+options.store('testMode', true)
+puts data.start(options)
