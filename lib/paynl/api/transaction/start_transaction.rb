@@ -53,6 +53,10 @@ module Paynl
           raise('Quantity has to be numerical')
         end
 
+        if (@products.nil?)
+          @products = Hash.new
+        end
+
         # copying code from PHP version... this has no use.
         quantity = quantity * 1
 

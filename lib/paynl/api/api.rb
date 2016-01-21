@@ -44,8 +44,8 @@ module Paynl
 
         data = self.getData
         uri = Paynl::Config::getApiUrl(endpoint, version)
-        puts uri
-        puts data
+        # puts uri
+        # puts data
         # Code to actually do the CURL request
         response = Typhoeus::Request.post(
             uri,
