@@ -122,8 +122,10 @@ module Paynl
       return api.doRequest
     end
 
-    def get(transactionId)
-
+    def getTransaction(transactionId)
+      api = Paynl::Api::TransactionInfo.new
+      api.setTransactionId(transactionId)
+      return api.doRequest
     end
 
     def refund(transactionId, amount = nil, description = nil)

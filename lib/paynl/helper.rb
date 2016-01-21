@@ -42,5 +42,29 @@ module Paynl
       return nearestTaxRate
     end
 
+    def self.transactionIsPaid(transaction)
+      unless transaction.is_a? Hash
+        raise("Please give me the output of the Paynl::Transaction::getTransaction function")
+      end
+
+      if result['paymentDetails']['stateName'] == 'PAID'
+        return true
+      end
+
+      return false
+    end
+
+    def self.transactionIsPending(transaction)
+      unless transaction.is_a? Hash
+        raise("Please give me the output of the Paynl::Transaction::getTransaction function")
+      end
+
+      if result['paymentDetails']['stateName'] == 'PENDING'
+        return true
+      end
+
+      return false
+    end
+
   end
 end

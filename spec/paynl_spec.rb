@@ -68,8 +68,8 @@ end
 
 describe Paynl::Transaction do
   it 'can start a transaction with the Demonstration version over the API' do
-    Paynl::Config::setApiToken('e41f83b246b706291ea9ad798ccfd9f0fee5e0ab')
-    Paynl::Config::setServiceId('SL-3490-4320')
+    Paynl::Config::setApiToken(validApiToken)
+    Paynl::Config::setServiceId(validServiceId)
     data = Paynl::Transaction.new
     options = Hash.new
     options.store('amount', 1.21)
@@ -91,11 +91,10 @@ describe Paynl::Transaction do
 
   it 'can detect if the amount is not set during api call' do
     expect {
-      Paynl::Config::setApiToken('e41f83b246b706291ea9ad798ccfd9f0fee5e0ab')
-      Paynl::Config::setServiceId('SL-3490-4320')
+      Paynl::Config::setApiToken(validApiToken)
+      Paynl::Config::setServiceId(validServiceId)
       data = Paynl::Transaction.new
       options = Hash.new
-      # options.store('amount', 1.21)
       options.store('returnUrl', 'https://pay.nl')
       options.store('ipaddress', '127.0.0.1')
       options.store('testMode', false)
@@ -108,20 +107,18 @@ describe Paynl::Transaction do
       product.store('qty', 1)
       products.store(products.length + 1, product)
       options.store('products', products)
-      result = data.start(options)
       data.start(options)
     }.to raise_error('Amount has to be set and in cents')
   end
 
   it 'will fail if no ip address has been provided while creating the transaction' do
     expect {
-      Paynl::Config::setApiToken('e41f83b246b706291ea9ad798ccfd9f0fee5e0ab')
-      Paynl::Config::setServiceId('SL-3490-4320')
+      Paynl::Config::setApiToken(validApiToken)
+      Paynl::Config::setServiceId(validServiceId)
       data = Paynl::Transaction.new
       options = Hash.new
       options.store('amount', 1.21)
       options.store('returnUrl', 'https://pay.nl')
-      # options.store('ipaddress', '127.0.0.1')
       options.store('testMode', false)
       products = Hash.new
       product = Hash.new
@@ -132,9 +129,74 @@ describe Paynl::Transaction do
       product.store('qty', 1)
       products.store(products.length + 1, product)
       options.store('products', products)
-      result = data.start(options)
       data.start(options)
     }.to raise_error('IP addresses are required for payments')
   end
+
+  it 'will trigger a nice error when called without valid ApiToken or ServiceId' do
+    expect {
+      Paynl::Config::setApiToken('')
+      Paynl::Config::setServiceId('')
+      data = Paynl::Transaction.new
+      options = Hash.new
+      options.store('amount', 1.21)
+      options.store('returnUrl', 'https://pay.nl')
+      options.store('ipaddress', '127.0.0.1')
+      options.store('testMode', false)
+      products = Hash.new
+      product = Hash.new
+      product.store('id', '234567u')
+      product.store('price', 1.21)
+      product.store('tax', 0.21)
+      product.store('name', 'Testproduct voor de demo tour')
+      product.store('qty', 1)
+      products.store(products.length + 1, product)
+      options.store('products', products)
+      data.start(options)
+    }.to raise_error('No Service Id is set')
+  end
+
+  it 'can still start a transaction with just minimal input' do
+    Paynl::Config::setApiToken(validApiToken)
+    Paynl::Config::setServiceId(validServiceId)
+    data = Paynl::Transaction.new
+    options = Hash.new
+    options.store('amount', 1.21)
+    options.store('returnUrl', 'https://pay.nl')
+    options.store('ipaddress', '127.0.0.1')
+    options.store('testMode', false)
+    result = data.start(options)
+    puts result['transaction']
+    expect(result['request']['result']).to eq('1')
+  end
+
+  it 'cannot retrieve the status of a non-existant transaction' do
+    expect {
+      Paynl::Config::setApiToken(validApiToken)
+      data = Paynl::Transaction.new
+      result = data.getTransaction('1')
+      puts result
+    }.to raise_error('PAY-108 - Transaction not found');
+  end
+
+  it 'can create a transaction and get the status from that transaction' do
+    Paynl::Config::setApiToken(validApiToken)
+    Paynl::Config::setServiceId(validServiceId)
+    data = Paynl::Transaction.new
+
+    # Create
+    options = Hash.new
+    options.store('amount', 1.21)
+    options.store('returnUrl', 'https://pay.nl')
+    options.store('ipaddress', '127.0.0.1')
+    options.store('testMode', false)
+    result = data.start(options)
+    transactionId = result['transaction']['transactionId']
+
+    # Test
+    result = data.getTransaction(transactionId)
+    expect(result['paymentDetails']['stateName']).to eq('PENDING')
+  end
+
 
 end
