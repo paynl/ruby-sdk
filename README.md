@@ -1,8 +1,16 @@
-# Paynl
+# Pay.nl SDK in Ruby
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/paynl`. To experiment with that code, run `bin/console` for an interactive prompt.
+---
 
-TODO: Delete this and the text above, and describe your gem
+- [Installation](#installation)
+- [Requirements](#requirements)
+- [Quick start and examples](#quick-start-and-examples)
+
+---
+
+This SDK is available as Ruby gem. 
+
+With this SDK you will be able to start transactions and retrieve transactions with their status for the Pay.nl payment service provider.
 
 ## Installation
 
@@ -19,6 +27,9 @@ And then execute:
 Or install it yourself as:
 
     $ gem install paynl
+
+## Requirements
+This gem requires Ruby 1.9.2+.
 
 ## Usage
 
@@ -38,4 +49,3 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/[USERN
 ## License
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
-
