@@ -166,7 +166,6 @@ describe Paynl::Transaction do
     options.store('ipaddress', '127.0.0.1')
     options.store('testMode', false)
     result = data.start(options)
-    puts result['transaction']
     expect(result['request']['result']).to eq('1')
   end
 
@@ -174,8 +173,7 @@ describe Paynl::Transaction do
     expect {
       Paynl::Config::setApiToken(validApiToken)
       data = Paynl::Transaction.new
-      result = data.getTransaction('1')
-      puts result
+      data.getTransaction('1')
     }.to raise_error('PAY-108 - Transaction not found');
   end
 

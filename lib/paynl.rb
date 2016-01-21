@@ -2,52 +2,19 @@ require 'yaml'
 require 'typhoeus'
 require 'json'
 require 'paynl/api/api'
+require 'paynl/error/required/serviceiderror'
+require 'paynl/error/required/apitokenerror'
+require 'paynl/error/requirederror'
+require 'paynl/helper'
+require 'paynl/version'
+require 'paynl/api/validate/is_pay_server_ip'
+require 'paynl/api/validate/get_pay_server_ips'
+require 'paynl/api/transaction/get_service'
+require 'paynl/api/transaction/start_transaction'
+require 'paynl/api/transaction/info'
+require 'paynl/api/api'
+require 'paynl/config'
+require 'paynl/transaction'
+require 'paynl/paymentmethods'
+require 'paynl'
 
-Dir[File.join(".", "**/*.rb")].each do |f|
-  unless f == './paynl.rb'
-    puts f
-    require f
-  end
-
-end
-
-
-# module Paynl
-#   # Your code goes here...
-# end
-
-
-
-
-
-# Retrieves server ip's
-# data =  Paynl::Api::GetPayServerIps.new
-# puts data.doRequest(nil, nil)
-
-# Test valid IP
-# data = Paynl::Api::IsPayServerIp.new
-# data.setIpAddress('85.158.206.17');
-# puts data.doRequest(nil, nil)
-
-# Test invalid IP
-# data = Paynl::Api::IsPayServerIp.new
-# data.setIpAddress('127.0.0.1');
-# puts data.doRequest(nil, nil)
-
-# Get some crap
-# Paynl::Config::setApiToken('e41f83b246b706291ea9ad798ccfd9f0fee5e0ab')
-# Paynl::Config::setServiceId('SL-3490-4320')
-# data = Paynl::Paymentmethods.new
-# options = Hash.new()
-# options.store('country','BE')
-# puts data.getList(options)
-
-Paynl::Config::setApiToken('e41f83b246b706291ea9ad798ccfd9f0fee5e0ab')
-Paynl::Config::setServiceId('SL-3490-4320')
-data = Paynl::Transaction.new
-options = Hash.new
-options.store('amount', 100)
-options.store('returnUrl', 'https://sebsoft.nl')
-options.store('ipaddress', '127.0.0.1')
-options.store('testMode', true)
-puts data.start(options)
