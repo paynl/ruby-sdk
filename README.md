@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/paynl/ruby-sdk.svg?branch=master)](https://travis-ci.org/paynl/ruby-sdk)
+[![Build Status](https://travis-ci.org/paynl/ruby-sdk.svg?branch=master)](https://travis-ci.org/paynl/ruby-sdk) [![Coverage Status](https://coveralls.io/repos/github/paynl/ruby-sdk/badge.svg?branch=master)](https://coveralls.io/github/paynl/ruby-sdk?branch=master)
 # Pay.nl SDK in Ruby
 
 ---
