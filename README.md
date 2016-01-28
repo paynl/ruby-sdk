@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/paynl/ruby-sdk.svg?branch=master)](https://travis-ci.org/paynl/ruby-sdk)
 # Pay.nl SDK in Ruby
 
 ---
