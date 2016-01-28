@@ -129,7 +129,15 @@ module Paynl
     end
 
     def refund(transactionId, amount = nil, description = nil)
-
+      api = Paynl::Api::TransactionRefund.new
+      api.setTransactionId(transactionId)
+      unless amount.nil?
+        api.setAmount(amount)
+      end
+      unless description.nil?
+        api.setDescription(description)
+      end
+      return api.doRequest
     end
   end
 end

@@ -2,7 +2,7 @@ module Paynl
   module Api
     class IsPayServerIp < Api
       def getData
-        if @@data['ipAddress'] == nil?
+        if @@data['ipAddress'].nil?
           raise Paynl::Error::RequiredError('ipAddress is required')
         end
 

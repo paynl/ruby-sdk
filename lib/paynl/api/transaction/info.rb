@@ -18,6 +18,10 @@ module Paynl
       end
 
       def setTransactionId(transactionId)
+        if (transactionId.nil?)
+          raise('TransactionId cannot be nil. Please set valid transactionId');
+        end
+
         @transactionId = transactionId
       end
 

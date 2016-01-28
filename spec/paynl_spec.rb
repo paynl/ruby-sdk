@@ -196,5 +196,29 @@ describe Paynl::Transaction do
     expect(result['paymentDetails']['stateName']).to eq('PENDING')
   end
 
+  it 'can not refund a pending transaction' do
+    Paynl::Config::setApiToken(validApiToken)
+    Paynl::Config::setServiceId(validServiceId)
+    data = Paynl::Transaction.new
 
+    # Create
+    options = Hash.new
+    options.store('amount', 1.21)
+    options.store('returnUrl', 'https://pay.nl')
+    options.store('ipaddress', '127.0.0.1')
+    options.store('testMode', false)
+    result = data.start(options)
+    transactionId = result['transaction']['transactionId']
+
+    # Test status of transaction
+    result = data.getTransaction(transactionId)
+    unless result['paymentDetails']['stateName'] == 'PENDING'
+      raise_error('Transaction should be pending, but does not appear to be so.')
+    end
+
+    # Try to refund this transaction
+    expect {
+      result = data.refund(transactionId)
+    }.to raise_error('3 - Order can not be refund as it is not paid')
+  end
 end
