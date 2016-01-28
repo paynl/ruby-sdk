@@ -157,7 +157,7 @@ module Paynl
         end
 
         unless @paymentOptionId.nil?
-          @@data['paymentOptionsId'] = @paymentOptionId
+          @@data['paymentOptionId'] = @paymentOptionId
         end
 
         if @finishUrl.nil?

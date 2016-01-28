@@ -44,10 +44,10 @@ module Paynl
 
     def self.transactionIsPaid(transaction)
       unless transaction.is_a? Hash
-        raise("Please give me the output of the Paynl::Transaction::getTransaction function")
+        raise('Please give me the output of the Paynl::Transaction::getTransaction function')
       end
 
-      if result['paymentDetails']['stateName'] == 'PAID'
+      if transaction['paymentDetails']['stateName'] == 'PAID'
         return true
       end
 
@@ -56,10 +56,22 @@ module Paynl
 
     def self.transactionIsPending(transaction)
       unless transaction.is_a? Hash
-        raise("Please give me the output of the Paynl::Transaction::getTransaction function")
+        raise('Please give me the output of the Paynl::Transaction::getTransaction function')
       end
 
-      if result['paymentDetails']['stateName'] == 'PENDING'
+      if transaction['paymentDetails']['stateName'] == 'PENDING'
+        return true
+      end
+
+      return false
+    end
+
+    def self.transactionIsCanceled(transaction)
+      unless transaction.is_a? Hash
+        raise('Please give me the output of the Paynl::Transaction::getTransaction function')
+      end
+
+      if transaction['paymentDetails']['stateName'] == 'CANCEL'
         return true
       end
 
