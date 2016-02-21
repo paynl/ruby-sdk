@@ -62,6 +62,9 @@ module Paynl
       if transaction['paymentDetails']['stateName'] == 'PENDING'
         return true
       end
+      if transaction['paymentDetails']['stateName'] == 'VERIFY'
+        return true
+      end
 
       return false
     end
