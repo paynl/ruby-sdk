@@ -30,8 +30,8 @@ Or install it yourself as:
     $ gem install paynl
 
 ## Requirements
-This gem requires Ruby 1.9.2+.
-We have tested this gem with Ruby 2.2.1.
+This gem requires Ruby 2.5+.
+We have tested this gem with Ruby 2.5, 2.6 and 2.7.
 
 ## Usage
 
