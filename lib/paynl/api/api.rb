@@ -50,7 +50,7 @@ module Paynl
         response = Typhoeus::Request.post(
             uri,
             params: data,
-            user_agent: 'Ruby SDK ' + VERSION
+            :headers => { 'User-Agent' => 'Ruby SDK ' + VERSION }
         )
 
         # if response.code != 200

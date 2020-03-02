@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-validServiceId = 'SL-3490-4320'
-validApiToken = 'e41f83b246b706291ea9ad798ccfd9f0fee5e0ab'
+validServiceId = 'SL-5796-8370'
+validApiToken = '06fe50eb098ad1f8becaa20231023adeae6325c4'
 
 describe Paynl do
   it 'has a version number' do
@@ -199,8 +199,8 @@ describe Paynl::Transaction do
     expect {
       Paynl::Config::setApiToken(validApiToken)
       data = Paynl::Transaction.new
-      data.getTransaction('1')
-    }.to raise_error('PAY-108 - Transaction not found');
+      data.getTransaction('12345678910')
+    }.to raise_error('PAY-100 - Transaction not found');
   end
 
   it 'can create a transaction and get the status from that transaction' do
@@ -245,6 +245,6 @@ describe Paynl::Transaction do
     # Try to refund this transaction
     expect {
       result = data.refund(transactionId)
-    }.to raise_error('3 - Order can not be refund as it is not paid')
+    }.to raise_error('2 - Transaction not found')
   end
 end

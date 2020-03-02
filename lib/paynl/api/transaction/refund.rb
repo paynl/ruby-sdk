@@ -38,7 +38,7 @@ module Paynl
       end
 
       def doRequest
-        return super('transaction/refund', nil)
+        return super('transaction/refund', 15)
       end
     end
   end
