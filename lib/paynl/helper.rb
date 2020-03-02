@@ -29,7 +29,7 @@ module Paynl
       # Setup basic taxClasses (like in the PHP SDK)
       taxClasses = Hash.new
       taxClasses.store(0, 'N')
-      taxClasses.store(6, 'L')
+      taxClasses.store(9, 'L')
       taxClasses.store(21, 'H')
 
       if (taxAmount == 0 || amountInclTax == 0)

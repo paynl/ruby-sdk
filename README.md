@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/paynl/ruby-sdk.svg?branch=master)](https://travis-ci.org/paynl/ruby-sdk) [![Coverage Status](https://coveralls.io/repos/github/paynl/ruby-sdk/badge.svg?branch=master)](https://coveralls.io/github/paynl/ruby-sdk?branch=master)
 # Pay.nl SDK in Ruby
 
 ---
@@ -80,7 +81,6 @@ options.store('testMode', true)
 options.store('extra1', 'ext1')
 options.store('extra2', 'ext2')
 options.store('extra3', 'ext3')
-options.store('language','EN')
 
 # First product
 products = Hash.new
@@ -110,6 +110,7 @@ enduser.store('gender', 'M')
 enduser.store('dob', '14-05-1999')
 enduser.store('phoneNumber', '0612345678')
 enduser.store('emailAddress', 'test@example.org')
+enduser.store('language','EN')
 options.store('enduser', enduser)
 
 # Address data

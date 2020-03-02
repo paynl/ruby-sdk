@@ -1,11 +1,11 @@
 module Paynl
   module Api
     class Api
-      @version = 1;
+      @version = 1
       @@data = Hash.new
 
-      @apiTokenRequired = false;
-      @serviceIdRequired = false;
+      @apiTokenRequired = false
+      @serviceIdRequired = false
 
       def isApiTokenRequired
         return @apiTokenRequired
@@ -17,13 +17,13 @@ module Paynl
       end
 
       def getData
-        if self.isApiTokenRequired
+        if isApiTokenRequired
           Paynl::Helper::requireApiToken
 
           @@data['token'] = Paynl::Config::getApiToken
         end
 
-        if self.isServiceIdRequired
+        if isServiceIdRequired
           Paynl::Helper::requireServiceId
 
           @@data['serviceId'] = Paynl::Config::getServiceId
@@ -42,14 +42,15 @@ module Paynl
 
       def doRequest(endpoint, version = nil)
 
-        data = self.getData
+        data = getData
         uri = Paynl::Config::getApiUrl(endpoint, version)
         # puts uri
         # puts data
         # Code to actually do the CURL request
         response = Typhoeus::Request.post(
             uri,
-            :params => data
+            params: data,
+            :headers => { 'User-Agent' => 'Ruby SDK ' + VERSION }
         )
 
         # if response.code != 200
@@ -62,7 +63,7 @@ module Paynl
         # puts response.headers_hash # http headers put into a hash
         # puts response.body    # the response body
 
-        output = self.processResult(JSON.parse(response.body))
+        output = processResult(JSON.parse(response.body))
         return output
 
       end
