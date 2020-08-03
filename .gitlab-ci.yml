@@ -21,5 +21,9 @@ prepare_deployment:
   only:
     - web
   script:
+  - mkdir ~/.gem
+  - echo '---' > ~/.gem/credentials
+  - echo ":rubygems_api_key: $RUBYGEM_KEY" >> ~/.gem/credentials
   - rake spec
   - rake build
+  - rake deploy
