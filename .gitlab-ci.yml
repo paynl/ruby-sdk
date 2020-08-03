@@ -28,4 +28,6 @@ prepare_deployment:
   script:
     - rake spec
     - rake build
+    - git config --global user.email "sebastian@sebsoft.nl"
+    - git config --global user.name "Sebastian Berm"
     - rake release
