@@ -7,7 +7,12 @@ before_script:
   - gem install rspec
   - mkdir ~/.gem || true
   - touch ~/.gem/credentials || true
-  - git checkout master
+  - url_host=`git remote get-url origin | sed -e "s/https:\/\/gitlab-ci-token:.*@//g"`
+    # runner runs on a detached HEAD, checkout current branch for editing
+  - git reset --hard
+  - git clean -fd
+  - git checkout $CI_COMMIT_REF_NAME
+  - git pull origin $CI_COMMIT_REF_NAME
   - |-
      echo "---
      :rubygems_api_key: $RUBYGEM_KEY" > ~/.gem/credentials
@@ -31,4 +36,5 @@ prepare_deployment:
     - rake build
     - git config --global user.email "sebastian@sebsoft.nl"
     - git config --global user.name "Sebastian Berm"
+    - git remote set-url origin "https://$GIT_ACCESS_USER:$GIT_ACCESS_PASSWORD@${url_host}"
     - rake release
