@@ -16,6 +16,7 @@ before_script:
   - |-
      echo "---
      :rubygems_api_key: $RUBYGEM_KEY" > ~/.gem/credentials
+  - chmod 600 ~/.gem/credentials
 
 rspec:
   stage: test
