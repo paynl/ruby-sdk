@@ -46,6 +46,7 @@ require 'paynl'
 
 Paynl::Config::setApiToken('e41f83b246b706291ea9ad798ccfd9f0fee5e0ab')
 Paynl::Config::setServiceId('SL-3490-4320')
+Paynl::Config::setTokenCode('AT-code-here')
 ```
 
 Getting a list of available payment methods for your site:
@@ -54,6 +55,7 @@ require 'paynl'
 
 Paynl::Config::setApiToken('e41f83b246b706291ea9ad798ccfd9f0fee5e0ab')
 Paynl::Config::setServiceId('SL-3490-4320')
+Paynl::Config::setTokenCode('AT-code-here')
 api = Paynl::Paymentmethods.new
 options = Hash.new
 puts api.getList(options)
@@ -65,6 +67,7 @@ require 'paynl'
 
 Paynl::Config::setApiToken('e41f83b246b706291ea9ad798ccfd9f0fee5e0ab')
 Paynl::Config::setServiceId('SL-3490-4320')
+Paynl::Config::setTokenCode('AT-code-here')
 
 data = Paynl::Transaction.new
 options = Hash.new
@@ -147,6 +150,7 @@ require 'paynl'
 
 Paynl::Config::setApiToken('e41f83b246b706291ea9ad798ccfd9f0fee5e0ab')
 Paynl::Config::setServiceId('SL-3490-4320')
+Paynl::Config::setTokenCode('AT-code-here')
 
 data = Paynl::Transaction.new
 result = data.getTransaction(transactionId)
@@ -163,6 +167,7 @@ require 'paynl'
 
 Paynl::Config::setApiToken('e41f83b246b706291ea9ad798ccfd9f0fee5e0ab')
 Paynl::Config::setServiceId('SL-3490-4320')
+Paynl::Config::setTokenCode('AT-code-here')
 
 data = Paynl::Transaction.new
 result = data.getTransaction(transactionId)

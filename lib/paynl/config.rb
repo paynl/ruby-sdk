@@ -1,9 +1,20 @@
 module Paynl
   class Config
     @@apiToken=''
+    @@tokenCode=''
     @@serviceId=''
     @@apiBase='https://rest-api.pay.nl'
     @@apiVersion=5
+
+    # getTokenCode - Retrieves Pay.nl tokencode
+    def self.getTokenCode
+      return @@tokenCode
+    end
+
+    # setTokenCode - Sets Pay.nl tokencode
+    def self.setTokenCode(tokenCode)
+      @@tokenCode = tokenCode
+    end
 
     # getApiToken - Retrieves Pay.nl api token
     def self.getApiToken

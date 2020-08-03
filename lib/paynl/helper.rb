@@ -2,11 +2,17 @@ module Paynl
   class Helper
     def self.requireApiToken
       apiToken = Paynl::Config::getApiToken
+      tokenCode = Paynl::Config::getTokenCode
 
       # Hmm, porting PHP to Ruby is crap if you want to keep the structure
       if apiToken == nil? or apiToken == ''
         raise Paynl::Error::Required::ApiTokenError, 'Api token is required'
       end
+
+      if tokenCode == nil? or tokenCode == ''
+        raise Paynl::Error::Required::ApiTokenError, 'Api token code (AT-code) is required'
+      end
+      
     end
 
     def self.requireServiceId

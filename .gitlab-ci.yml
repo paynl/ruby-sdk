@@ -1,0 +1,25 @@
+image: "ruby:2.7"
+
+
+before_script:
+  - ruby -v  # Print out ruby version for debugging
+  - bundle install
+  - gem install rspec
+
+rspec:
+  stage: test
+  script:
+    - rspec spec
+
+build:
+  stage: build
+  script:
+    - rake build
+
+prepare_deployment:
+  stage: deploy
+  only:
+    - web
+  script:
+  - rake spec
+  - rake build

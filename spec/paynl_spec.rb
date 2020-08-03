@@ -2,6 +2,7 @@ require 'spec_helper'
 
 validServiceId = 'SL-5796-8370'
 validApiToken = '06fe50eb098ad1f8becaa20231023adeae6325c4'
+validApiTokenCode = 'AT-0058-7466'
 
 describe Paynl do
   it 'has a version number' do
@@ -40,6 +41,7 @@ describe Paynl::Api::GetService do
     expect {
       Paynl::Config::setServiceId('');
       Paynl::Config::setApiToken(validApiToken)
+      Paynl::Config::setTokenCode(validApiTokenCode)
       data = Paynl::Api::GetService.new
       puts data.doRequest
     }.to raise_error('No Service Id is set')
@@ -49,6 +51,17 @@ describe Paynl::Api::GetService do
     expect {
       Paynl::Config::setServiceId(validServiceId);
       Paynl::Config::setApiToken('')
+      Paynl::Config::setTokenCode('')
+      data = Paynl::Api::GetService.new
+      puts data.doRequest
+    }.to raise_error('Api token is required')
+  end
+
+  it 'can detect a missing api tokencode when getting payment options' do
+    expect {
+      Paynl::Config::setServiceId(validServiceId);
+      Paynl::Config::setApiToken('')
+      Paynl::Config::setTokenCode('')
       data = Paynl::Api::GetService.new
       puts data.doRequest
     }.to raise_error('Api token is required')
@@ -58,6 +71,7 @@ describe Paynl::Api::GetService do
     counter = 0
     Paynl::Config::setApiToken(validApiToken)
     Paynl::Config::setServiceId(validServiceId)
+    Paynl::Config::setTokenCode(validApiTokenCode)
     data = Paynl::Paymentmethods.new
     options = Hash.new()
     options.store('country','NL')
@@ -70,6 +84,7 @@ describe Paynl::Transaction do
   it 'can start a transaction with the Demonstration version over the API' do
     Paynl::Config::setApiToken(validApiToken)
     Paynl::Config::setServiceId(validServiceId)
+    Paynl::Config::setTokenCode(validApiTokenCode)
     data = Paynl::Transaction.new
     options = Hash.new
     options.store('amount', 1.21)
@@ -92,6 +107,7 @@ describe Paynl::Transaction do
   it 'can start a transaction with the Demonstration version over the API with a non-default language' do
     Paynl::Config::setApiToken(validApiToken)
     Paynl::Config::setServiceId(validServiceId)
+    Paynl::Config::setTokenCode(validApiTokenCode)
     data = Paynl::Transaction.new
     options = Hash.new
     options.store('amount', 1.21)
@@ -119,6 +135,7 @@ describe Paynl::Transaction do
     expect {
       Paynl::Config::setApiToken(validApiToken)
       Paynl::Config::setServiceId(validServiceId)
+      Paynl::Config::setTokenCode(validApiTokenCode)
       data = Paynl::Transaction.new
       options = Hash.new
       options.store('returnUrl', 'https://pay.nl')
@@ -141,6 +158,7 @@ describe Paynl::Transaction do
     expect {
       Paynl::Config::setApiToken(validApiToken)
       Paynl::Config::setServiceId(validServiceId)
+      Paynl::Config::setTokenCode(validApiTokenCode)
       data = Paynl::Transaction.new
       options = Hash.new
       options.store('amount', 1.21)
@@ -163,6 +181,7 @@ describe Paynl::Transaction do
     expect {
       Paynl::Config::setApiToken('')
       Paynl::Config::setServiceId('')
+      Paynl::Config::setTokenCode('')
       data = Paynl::Transaction.new
       options = Hash.new
       options.store('amount', 1.21)
@@ -185,6 +204,7 @@ describe Paynl::Transaction do
   it 'can still start a transaction with just minimal input' do
     Paynl::Config::setApiToken(validApiToken)
     Paynl::Config::setServiceId(validServiceId)
+    Paynl::Config::setTokenCode(validApiTokenCode)
     data = Paynl::Transaction.new
     options = Hash.new
     options.store('amount', 1.21)
@@ -198,6 +218,7 @@ describe Paynl::Transaction do
   it 'cannot retrieve the status of a non-existant transaction' do
     expect {
       Paynl::Config::setApiToken(validApiToken)
+      Paynl::Config::setTokenCode(validApiTokenCode)
       data = Paynl::Transaction.new
       data.getTransaction('12345678910')
     }.to raise_error('PAY-100 - Transaction not found');
@@ -206,6 +227,7 @@ describe Paynl::Transaction do
   it 'can create a transaction and get the status from that transaction' do
     Paynl::Config::setApiToken(validApiToken)
     Paynl::Config::setServiceId(validServiceId)
+    Paynl::Config::setTokenCode(validApiTokenCode)
     data = Paynl::Transaction.new
 
     # Create
@@ -225,6 +247,7 @@ describe Paynl::Transaction do
   it 'can not refund a pending transaction' do
     Paynl::Config::setApiToken(validApiToken)
     Paynl::Config::setServiceId(validServiceId)
+    Paynl::Config::setTokenCode(validApiTokenCode)
     data = Paynl::Transaction.new
 
     # Create
@@ -245,6 +268,6 @@ describe Paynl::Transaction do
     # Try to refund this transaction
     expect {
       result = data.refund(transactionId)
-    }.to raise_error('2 - Transaction not found')
+    }.to raise_error('PAY-2 - Transaction not found')
   end
 end

@@ -14,7 +14,7 @@ module Paynl
 
       def doRequest
         # TODO: add caching to this
-        return super('transaction/getService', nil)
+        return super('transaction/getService', 16)
       end
     end
   end

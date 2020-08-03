@@ -44,14 +44,25 @@ module Paynl
 
         data = getData
         uri = Paynl::Config::getApiUrl(endpoint, version)
-        # puts uri
-        # puts data
-        # Code to actually do the CURL request
-        response = Typhoeus::Request.post(
-            uri,
-            params: data,
-            :headers => { 'User-Agent' => 'Ruby SDK ' + VERSION }
-        )
+        #puts uri
+        #puts data
+
+        if isServiceIdRequired
+          # Code to actually do the CURL request
+          response = Typhoeus::Request.post(
+              uri,
+              params: data,
+              userpwd: Paynl::Config::getTokenCode + ':' + Paynl::Config::getApiToken,
+              :headers => { 'User-Agent' => 'Ruby SDK ' + VERSION }
+          )          
+        else
+          # Code to actually do the CURL request
+          response = Typhoeus::Request.post(
+              uri,
+              params: data,
+              :headers => { 'User-Agent' => 'Ruby SDK ' + VERSION }
+          )
+        end
 
         # if response.code != 200
         #   raise 'API error'
