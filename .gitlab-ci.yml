@@ -28,4 +28,4 @@ prepare_deployment:
   script:
     - rake spec
     - rake build
-    - rake deploy
+    - rake release
