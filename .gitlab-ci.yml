@@ -5,7 +5,6 @@ before_script:
   - ruby -v  # Print out ruby version for debugging
   - bundle install
   - gem install rspec
-  - mkdir ~/.gem
   - |-
      echo "---" > ~/.gem/credentials
      echo ":rubygems_api_key: $RUBYGEM_KEY" >> ~./gem/credentials
