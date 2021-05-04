@@ -44,18 +44,18 @@ Setting the configuration:
 ```ruby
 require 'paynl'
 
-Paynl::Config::setApiToken('e41f83b246b706291ea9ad798ccfd9f0fee5e0ab')
-Paynl::Config::setServiceId('SL-3490-4320')
-Paynl::Config::setTokenCode('AT-code-here')
+Paynl::Config::setApiToken('****************************************')
+Paynl::Config::setServiceId('SL-####-####')
+Paynl::Config::setTokenCode('AT-####-####')
 ```
 
 Getting a list of available payment methods for your site:
 ```ruby
 require 'paynl'
 
-Paynl::Config::setApiToken('e41f83b246b706291ea9ad798ccfd9f0fee5e0ab')
-Paynl::Config::setServiceId('SL-3490-4320')
-Paynl::Config::setTokenCode('AT-code-here')
+Paynl::Config::setApiToken('****************************************')
+Paynl::Config::setServiceId('SL-####-####')
+Paynl::Config::setTokenCode('AT-####-####')
 api = Paynl::Paymentmethods.new
 options = Hash.new
 puts api.getList(options)
@@ -65,9 +65,9 @@ Starting a transaction:
 ```ruby
 require 'paynl'
 
-Paynl::Config::setApiToken('e41f83b246b706291ea9ad798ccfd9f0fee5e0ab')
-Paynl::Config::setServiceId('SL-3490-4320')
-Paynl::Config::setTokenCode('AT-code-here')
+Paynl::Config::setApiToken('****************************************')
+Paynl::Config::setServiceId('SL-####-####')
+Paynl::Config::setTokenCode('AT-####-####')
 
 data = Paynl::Transaction.new
 options = Hash.new
@@ -148,9 +148,9 @@ To determine if a transaction has been paid, you can use:
 ```ruby
 require 'paynl'
 
-Paynl::Config::setApiToken('e41f83b246b706291ea9ad798ccfd9f0fee5e0ab')
-Paynl::Config::setServiceId('SL-3490-4320')
-Paynl::Config::setTokenCode('AT-code-here')
+Paynl::Config::setApiToken('****************************************')
+Paynl::Config::setServiceId('SL-####-####')
+Paynl::Config::setTokenCode('AT-####-####')
 
 data = Paynl::Transaction.new
 result = data.getTransaction(transactionId)
@@ -165,9 +165,9 @@ When implementing the exchange script (where you should process the order in you
 ```ruby
 require 'paynl'
 
-Paynl::Config::setApiToken('e41f83b246b706291ea9ad798ccfd9f0fee5e0ab')
-Paynl::Config::setServiceId('SL-3490-4320')
-Paynl::Config::setTokenCode('AT-code-here')
+Paynl::Config::setApiToken('****************************************')
+Paynl::Config::setServiceId('SL-####-####')
+Paynl::Config::setTokenCode('AT-####-####')
 
 data = Paynl::Transaction.new
 result = data.getTransaction(transactionId)
